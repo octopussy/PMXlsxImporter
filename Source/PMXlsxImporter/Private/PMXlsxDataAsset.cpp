@@ -7,6 +7,7 @@
 #include "EditorAssetLibrary.h"
 #include "Exporters/Exporter.h"
 #include "UnrealExporter.h"
+#include "Misc/StringOutputDevice.h"
 
 static const TCHAR* const IMPORT_FROM_XLSX_METADATA_TAG = TEXT("ImportFromXLSX");
 
@@ -242,7 +243,7 @@ bool UPMXlsxDataAsset::ParseValue(FProperty& Property, const FString& Value, voi
 	}
 
 	// Property is not explictly supported by this class, but maybe Unreal supports it natively
-	if (Property.ImportText(*Value, Result, PPF_None, this, &InOutErrors))
+	if (Property.ImportText_Direct(*Value, Result, this, PPF_None, &InOutErrors))
 	{
 		return true;
 	}
